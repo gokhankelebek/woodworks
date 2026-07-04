@@ -23,6 +23,12 @@ import { BUSINESS } from '@/data/business';
     grid-template-columns: 1fr 1fr;
     border-top: 1px solid var(--brass);
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
+    transform: translateY(105%);
+    transition: transform 0.35s ease;
+  }
+  .call-bar.visible { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .call-bar { transition: none; }
   }
   .call-bar-btn {
     display: flex;
@@ -44,3 +50,13 @@ import { BUSINESS } from '@/data/business';
     :global(body) { padding-bottom: var(--callbar-h); }
   }
 </style>
+
+<script>
+  // stay out of the hero's way — slide in after the first screenful
+  const bar = document.querySelector('.call-bar');
+  const update = () => {
+    bar?.classList.toggle('visible', window.scrollY > window.innerHeight * 0.55);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+</script>
