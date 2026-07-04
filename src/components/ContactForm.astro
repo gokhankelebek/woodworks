@@ -1,0 +1,99 @@
+---
+import { BUSINESS } from '@/data/business';
+
+// TODO: replace YOUR_FORM_ID with a real Formspree form ID (formspree.io) —
+// or point the action at any form backend / serverless endpoint.
+const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
+---
+
+<form class="contact-form" action={FORM_ACTION} method="POST">
+  <div class="form-row">
+    <label>
+      <span>Name *</span>
+      <input type="text" name="name" required autocomplete="name" />
+    </label>
+    <label>
+      <span>Phone *</span>
+      <input type="tel" name="phone" required autocomplete="tel" />
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" autocomplete="email" />
+    </label>
+    <label>
+      <span>Project Location</span>
+      <input type="text" name="location" placeholder="e.g. Summerlin, Newport Beach" />
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>Project Type</span>
+      <select name="project_type">
+        <option>Custom Kitchen</option>
+        <option>Walk-In Closet</option>
+        <option>Feature Wall / Paneling</option>
+        <option>Custom Furniture Piece</option>
+        <option>Home Office / Built-Ins</option>
+        <option>Commercial / Restaurant</option>
+        <option>Other</option>
+      </select>
+    </label>
+    <label>
+      <span>Approximate Budget</span>
+      <select name="budget">
+        <option>Not sure yet</option>
+        <option>$10k – $25k</option>
+        <option>$25k – $50k</option>
+        <option>$50k – $100k</option>
+        <option>$100k+</option>
+      </select>
+    </label>
+  </div>
+
+  <label>
+    <span>Tell us about your project</span>
+    <textarea name="message" rows="5" placeholder="What are you dreaming of? Inspiration links welcome."></textarea>
+  </label>
+
+  <button type="submit" class="btn btn--solid form-submit">Request My Free Consultation</button>
+  <p class="form-alt">
+    Prefer to talk? Call or WhatsApp <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>
+  </p>
+</form>
+
+<style>
+  .contact-form { display: flex; flex-direction: column; gap: 18px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  label { display: flex; flex-direction: column; gap: 7px; }
+  label span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--walnut);
+  }
+  input, select, textarea {
+    font: inherit;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--brass);
+    outline-offset: -1px;
+  }
+  .form-submit { margin-top: 6px; align-self: flex-start; }
+  .form-alt { font-size: 0.88rem; color: rgba(22,19,15,0.65); }
+  .form-alt a { font-weight: 600; color: var(--walnut); border-bottom: 1px solid var(--brass); }
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-submit { align-self: stretch; text-align: center; justify-content: center; }
+  }
+</style>

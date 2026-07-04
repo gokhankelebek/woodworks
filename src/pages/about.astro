@@ -1,0 +1,147 @@
+---
+import Base from '@/layouts/Base.astro';
+import CTABand from '@/components/CTABand.astro';
+import { Image } from 'astro:assets';
+import { BUSINESS } from '@/data/business';
+import { imagesFor } from '@/lib/projectImages';
+
+const shopImg = imagesFor('custom-arches-oversized-frame')[1] ?? imagesFor('custom-arches-oversized-frame')[0];
+const detailImg = imagesFor('record-player-console')[0];
+
+const title = 'About Us — Vegas Vogue Woodworks | Custom Furniture Makers, Las Vegas';
+const description =
+  'Vegas Vogue Woodworks is a Las Vegas custom furniture and millwork studio founded by Mert. Design, fabrication, and installation under one roof — serving Las Vegas and Los Angeles.';
+---
+
+<Base title={title} description={description}>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow">About Us</p>
+      <h1>Design is about the feeling<br />it creates.</h1>
+      <p class="lede head-lede">
+        That belief — from our founder, {BUSINESS.owner} — is why every Vegas Vogue piece
+        begins with how a room should <em>feel</em>, and only then with how it should look.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-body">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <p class="fade-up">
+          Vegas Vogue Woodworks is a custom furniture and architectural millwork studio
+          based in Las Vegas, Nevada. We design and build bespoke kitchens, walk-in
+          closets, feature walls, offices, and one-of-a-kind furniture for clients who
+          have outgrown what showrooms can offer.
+        </p>
+        <p class="fade-up">
+          Our name is a promise: <strong>Vogue</strong> — because the work belongs in
+          the pages of a design magazine. <strong>Woodworks</strong> — because it's
+          earned with sawdust, veneer presses, and hand-rubbed finishes, not marketing.
+          Custom woodworking with a touch of extravagance.
+        </p>
+        <p class="fade-up">
+          Everything happens under one roof at our North Las Vegas workshop: design and
+          3D modeling, CNC fabrication, finishing, and installation by our own team.
+          That single-team model is why a Laguna Beach master suite, a Newport Beach
+          closet, and a Fremont Street restaurant all carry the same standard of finish.
+        </p>
+        <h2 class="about-h2 fade-up">How we work</h2>
+        <ol class="process fade-up">
+          <li>
+            <strong>Listen &amp; design.</strong> We start with your space, your
+            inspiration images, and how you live. You approve a full 3D model before
+            anything is built.
+          </li>
+          <li>
+            <strong>Plan carefully.</strong> Site measurements, shop drawings, material
+            samples — problems get solved on paper, where they're cheap.
+          </li>
+          <li>
+            <strong>Build smart.</strong> CNC precision where it counts, hand craft
+            where it shows. Our workshop, our people, our timeline.
+          </li>
+          <li>
+            <strong>Install perfectly.</strong> Our own installers deliver and fit every
+            piece — white-glove, on schedule, done when it's perfect.
+          </li>
+        </ol>
+      </div>
+
+      <div class="about-media">
+        <div class="fade-up">
+          <Image
+            src={shopImg}
+            alt="Handcrafted architectural arches by Vegas Vogue Woodworks"
+            widths={[500, 800]}
+            sizes="(max-width: 900px) 100vw, 40vw"
+          />
+        </div>
+        <div class="fade-up">
+          <Image
+            src={detailImg}
+            alt="Bespoke record player console — custom furniture detail by Vegas Vogue Woodworks"
+            widths={[500, 800]}
+            sizes="(max-width: 900px) 100vw, 40vw"
+          />
+        </div>
+        <div class="visit fade-up">
+          <p class="visit-head">Visit the Workshop</p>
+          <p>
+            {BUSINESS.address.street}<br />
+            {BUSINESS.address.city}, {BUSINESS.address.state} {BUSINESS.address.zip}
+          </p>
+          <p class="visit-hours">{BUSINESS.hours}</p>
+          <a href={BUSINESS.mapsUrl} target="_blank" rel="noopener" class="btn visit-btn">Get Directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand title="Come see how it's made" text="Visit our Las Vegas workshop, or start with a phone call — either way, you'll talk directly with the people who build your piece." />
+</Base>
+
+<style>
+  .page-head { padding-bottom: 36px; }
+  .head-lede { margin-top: 18px; }
+  .about-body { padding-bottom: clamp(64px, 9vw, 120px); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(36px, 5vw, 72px);
+  }
+  .about-copy p { margin-bottom: 1.4em; font-size: 1.05rem; color: rgba(22,19,15,0.8); }
+  .about-h2 { margin: 20px 0 18px; }
+  .process { list-style: none; counter-reset: step; }
+  .process li {
+    counter-increment: step;
+    position: relative;
+    padding: 16px 0 16px 56px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+    color: rgba(22,19,15,0.8);
+  }
+  .process li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 14px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--brass);
+  }
+  .about-media { display: flex; flex-direction: column; gap: 20px; align-self: start; }
+  .about-media :global(img) { width: 100%; height: auto; }
+  .visit { background: var(--paper-warm); border: 1px solid var(--line); padding: 28px; }
+  .visit-head {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 10px;
+  }
+  .visit p { font-size: 0.95rem; }
+  .visit-hours { margin-top: 8px; color: rgba(22,19,15,0.6); }
+  .visit-btn { margin-top: 16px; }
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>

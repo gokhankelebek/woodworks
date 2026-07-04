@@ -1,0 +1,92 @@
+---
+import Base from '@/layouts/Base.astro';
+import ContactForm from '@/components/ContactForm.astro';
+import { BUSINESS } from '@/data/business';
+
+const title = 'Contact Us — Free Consultation | Vegas Vogue Woodworks, Las Vegas';
+const description =
+  'Start your custom furniture or cabinetry project. Call (702) 343-1078, WhatsApp, or tell us about your project — free consultations for Las Vegas and Los Angeles.';
+---
+
+<Base title={title} description={description}>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1>Tell us what you're dreaming of.</h1>
+      <p class="lede head-lede">
+        Every project starts with a conversation — no pressure, no obligation.
+        Share a few details and we'll come back with ideas, a rough timeline, and
+        honest guidance on investment.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact-body">
+    <div class="wrap contact-grid">
+      <div class="contact-form-col fade-up">
+        <ContactForm />
+      </div>
+
+      <aside class="contact-aside fade-up">
+        <div class="aside-block">
+          <p class="aside-head">Talk to a human</p>
+          <a class="aside-big" href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>
+          <p class="aside-note">Call or text · <a href={BUSINESS.whatsapp} target="_blank" rel="noopener">WhatsApp</a> welcome</p>
+        </div>
+        <div class="aside-block">
+          <p class="aside-head">Email</p>
+          <a class="aside-link" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+        </div>
+        <div class="aside-block">
+          <p class="aside-head">Workshop</p>
+          <p>
+            {BUSINESS.address.street}<br />
+            {BUSINESS.address.city}, {BUSINESS.address.state} {BUSINESS.address.zip}
+          </p>
+          <p class="aside-note">{BUSINESS.hours}</p>
+          <a class="aside-link" href={BUSINESS.mapsUrl} target="_blank" rel="noopener">Get directions →</a>
+        </div>
+        <div class="aside-block">
+          <p class="aside-head">Follow the work</p>
+          <a class="aside-link" href={BUSINESS.instagram} target="_blank" rel="noopener">Instagram</a><br />
+          <a class="aside-link" href={BUSINESS.facebook} target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding-bottom: 32px; }
+  .head-lede { margin-top: 18px; }
+  .contact-body { padding-bottom: clamp(64px, 9vw, 120px); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+  }
+  .contact-aside {
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    padding: 34px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .aside-head {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 6px;
+  }
+  .aside-big {
+    font-family: var(--font-display);
+    font-size: 1.9rem; font-weight: 600;
+  }
+  .aside-note { font-size: 0.85rem; color: rgba(22,19,15,0.6); margin-top: 4px; }
+  .aside-note a { border-bottom: 1px solid var(--brass); font-weight: 600; }
+  .aside-link { font-weight: 500; border-bottom: 1px solid var(--brass); }
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>

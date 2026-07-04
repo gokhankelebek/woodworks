@@ -1,0 +1,39 @@
+---
+import { BUSINESS } from '@/data/business';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Let’s build something extraordinary',
+  text = 'Tell us about your project — a kitchen, a closet, a one-of-a-kind piece. We’ll walk you through design, timeline, and investment with zero pressure.',
+} = Astro.props;
+---
+
+<section class="cta section--dark">
+  <div class="wrap cta-inner">
+    <div class="fade-up">
+      <p class="eyebrow">Free Consultation</p>
+      <h2>{title}</h2>
+      <p class="lede cta-text">{text}</p>
+    </div>
+    <div class="cta-actions fade-up">
+      <a href={BUSINESS.phoneHref} class="btn btn--brass">Call {BUSINESS.phone}</a>
+      <a href="/contact/" class="btn btn--ghost-light">Tell Us About Your Project</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { padding: clamp(64px, 8vw, 104px) 0; }
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-text { margin-top: 14px; max-width: 52ch; }
+  .cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+</style>

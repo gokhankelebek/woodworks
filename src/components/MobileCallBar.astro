@@ -1,0 +1,39 @@
+---
+import { BUSINESS } from '@/data/business';
+---
+
+<div class="call-bar">
+  <a href={BUSINESS.phoneHref} class="call-bar-btn call-bar-btn--call">
+    Call Now
+  </a>
+  <a href="/contact/" class="call-bar-btn call-bar-btn--quote">
+    Free Consultation
+  </a>
+</div>
+
+<style>
+  .call-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  }
+  .call-bar-btn {
+    padding: 16px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .call-bar-btn--call { background: var(--brass); color: var(--ink); }
+  .call-bar-btn--quote { background: var(--ink); color: var(--paper); }
+  @media (max-width: 720px) {
+    .call-bar { display: grid; }
+    :global(body) { padding-bottom: 52px; }
+  }
+</style>

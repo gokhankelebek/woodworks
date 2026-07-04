@@ -1,0 +1,89 @@
+---
+import Base from '@/layouts/Base.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import CTABand from '@/components/CTABand.astro';
+import { PROJECTS, CATEGORY_LABELS } from '@/data/projects';
+import type { ProjectCategory } from '@/data/projects';
+
+const categories = Object.entries(CATEGORY_LABELS) as [ProjectCategory, string][];
+
+const title = 'Portfolio — Custom Furniture & Millwork Projects | Vegas Vogue Woodworks';
+const description =
+  'Explore custom kitchens, walk-in closets, feature walls, one-of-a-kind furniture, and commercial millwork built by Vegas Vogue Woodworks for clients in Las Vegas, Los Angeles, and beyond.';
+---
+
+<Base title={title} description={description}>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Work that speaks quietly,<br />and gets remembered.</h1>
+      <p class="lede head-lede">
+        Every project below was designed, fabricated, and installed by our own team —
+        from Laguna Beach master suites to the busiest restaurant on Fremont Street.
+      </p>
+
+      <div class="filters" role="tablist" aria-label="Filter projects by category">
+        <button class="filter active" data-filter="all">All</button>
+        {categories.map(([key, label]) => (
+          <button class="filter" data-filter={key}>{label}</button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio-body">
+    <div class="wrap">
+      <div class="grid grid-3 portfolio-grid">
+        {PROJECTS.map((p, i) => (
+          <div class="portfolio-item" data-category={p.category}>
+            <ProjectCard project={p} loading={i < 6 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Have a project in mind?"
+    text="Every piece in this portfolio started with a conversation. Tell us what you're imagining."
+  />
+</Base>
+
+<style>
+  .page-head { padding-bottom: 24px; }
+  .head-lede { margin-top: 18px; }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 40px; }
+  .filter {
+    font: inherit;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter:hover { border-color: var(--brass); color: var(--walnut); }
+  .filter.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .portfolio-body { padding: 40px 0 clamp(64px, 9vw, 120px); }
+  .portfolio-grid { row-gap: 48px; }
+  .portfolio-item.hidden { display: none; }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const items = document.querySelectorAll<HTMLElement>('.portfolio-item');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      items.forEach((item) => {
+        item.classList.toggle('hidden', f !== 'all' && item.dataset.category !== f);
+      });
+    });
+  });
+</script>

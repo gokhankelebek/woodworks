@@ -1,0 +1,255 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import CTABand from '@/components/CTABand.astro';
+import { BUSINESS } from '@/data/business';
+import { SERVICES } from '@/data/services';
+import { featuredProjects } from '@/data/projects';
+import { coverFor, imagesFor } from '@/lib/projectImages';
+
+const featured = featuredProjects().slice(0, 6);
+const hero = coverFor('laguna-beach-kitchen');
+const craftImg = imagesFor('walnut-feature-wall')[0];
+const closetImg = coverFor('newport-beach-walk-in-closet');
+
+const title =
+  'Custom High-End Furniture & Cabinetry | Las Vegas & Los Angeles | Vegas Vogue Woodworks';
+const description =
+  'Vegas Vogue Woodworks designs and builds bespoke kitchens, walk-in closets, feature walls, and one-of-a-kind furniture for luxury homes in Las Vegas and Los Angeles. Call (702) 343-1078 for a free consultation.';
+---
+
+<Base title={title} description={description}>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <Image
+        src={hero}
+        alt="Custom bookmatched walnut kitchen with marble waterfall island, designed and built by Vegas Vogue Woodworks"
+        widths={[800, 1280, 1920]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="wrap hero-content">
+      <p class="eyebrow hero-eyebrow">Las Vegas · Los Angeles</p>
+      <h1>Furniture-grade craftsmanship,<br />architectural scale.</h1>
+      <p class="hero-lede">
+        Bespoke kitchens, walk-in closets, feature walls, and one-of-a-kind pieces —
+        designed, built, and installed by one workshop for the finest homes in
+        Las Vegas and Los Angeles.
+      </p>
+      <div class="hero-actions">
+        <a href="/contact/" class="btn btn--brass">Start Your Project</a>
+        <a href="/portfolio/" class="btn btn--ghost-light">View Our Work</a>
+      </div>
+      <p class="hero-phone">
+        Or call <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a> — speak directly with our design team.
+      </p>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust">
+    <div class="wrap trust-grid">
+      <div class="trust-item fade-up">
+        <p class="trust-num">100%</p>
+        <p class="trust-label">Designed &amp; built in-house</p>
+      </div>
+      <div class="trust-item fade-up">
+        <p class="trust-num">2</p>
+        <p class="trust-label">States served — Nevada &amp; California</p>
+      </div>
+      <div class="trust-item fade-up">
+        <p class="trust-num">1</p>
+        <p class="trust-label">Team from first sketch to final install</p>
+      </div>
+      <div class="trust-item fade-up">
+        <p class="trust-num">0</p>
+        <p class="trust-label">Off-the-shelf boxes. Ever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head fade-up">
+        <div>
+          <p class="eyebrow">Selected Work</p>
+          <h2>Recent commissions</h2>
+        </div>
+        <a href="/portfolio/" class="btn">Full Portfolio</a>
+      </div>
+      <div class="grid grid-3 work-grid">
+        {featured.map((p, i) => (
+          <ProjectCard project={p} loading={i < 3 ? 'eager' : 'lazy'} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CRAFT / DIFFERENTIATOR -->
+  <section class="section section--dark">
+    <div class="wrap craft-grid">
+      <div class="craft-media fade-up">
+        <Image
+          src={craftImg}
+          alt="Parametric walnut feature wall with sculpted wave pattern, handcrafted by Vegas Vogue Woodworks"
+          widths={[600, 900]}
+          sizes="(max-width: 900px) 100vw, 50vw"
+        />
+      </div>
+      <div class="craft-copy fade-up">
+        <p class="eyebrow">Why Vegas Vogue</p>
+        <h2>Parametric precision.<br />Old-world hands.</h2>
+        <p class="lede craft-lede">
+          Every project starts as a 3D model you approve — and ends with surfaces
+          sanded and finished by hand. In between: our own CNC fabrication, our own
+          finishing room, our own installers. When one team owns every step, nothing
+          gets lost between the vision and the reveal.
+        </p>
+        <ul class="craft-list">
+          <li>Design, fabrication &amp; installation under one roof</li>
+          <li>3D approval before a single panel is cut</li>
+          <li>Bookmatched veneers, hand-rubbed finishes, concealed hardware</li>
+          <li>Residential &amp; commercial — from private estates to the Vegas Strip</li>
+        </ul>
+        <a href="/about/" class="btn btn--ghost-light">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--warm">
+    <div class="wrap">
+      <div class="section-head fade-up">
+        <div>
+          <p class="eyebrow">What We Build</p>
+          <h2>Services</h2>
+        </div>
+      </div>
+      <div class="grid grid-3">
+        {SERVICES.map((s) => (
+          <a href={`/services/${s.slug}/`} class="service-card fade-up">
+            <h3>{s.navLabel}</h3>
+            <p>{s.hero}</p>
+            <span class="service-more">Explore →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="section">
+    <div class="wrap locations-grid">
+      <div class="fade-up">
+        <p class="eyebrow">Where We Work</p>
+        <h2>Three markets.<br />One standard.</h2>
+        <p class="lede loc-lede">
+          Our workshop sits in Las Vegas; our work lives in the most exclusive
+          neighborhoods of the Southwest — Summerlin and The Ridges, Beverly Hills
+          and Palos Verdes, Newport Beach and Laguna Beach.
+        </p>
+        <div class="loc-links">
+          <a class="btn" href="/service-areas/las-vegas/">Las Vegas</a>
+          <a class="btn" href="/service-areas/los-angeles/">Los Angeles</a>
+          <a class="btn" href="/service-areas/orange-county/">Orange County</a>
+        </div>
+      </div>
+      <div class="loc-media fade-up">
+        <Image
+          src={closetImg}
+          alt="Luxury walk-in closet with smoked glass wardrobe doors in Newport Beach, California"
+          widths={[600, 900]}
+          sizes="(max-width: 900px) 100vw, 50vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</Base>
+
+<style>
+  .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; }
+  .hero-media, .hero-media :global(img) {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  }
+  .hero-scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(22,19,15,0.28) 0%, rgba(22,19,15,0.05) 40%, rgba(22,19,15,0.78) 100%);
+  }
+  .hero-content { position: relative; color: var(--paper); padding-bottom: 88px; padding-top: 160px; }
+  .hero-eyebrow { color: var(--brass-light); }
+  .hero-lede {
+    margin-top: 20px; font-size: 1.15rem; max-width: 56ch; color: rgba(250,247,242,0.85);
+  }
+  .hero-actions { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+  .hero-phone { margin-top: 22px; font-size: 0.92rem; color: rgba(250,247,242,0.75); }
+  .hero-phone a { font-weight: 600; color: var(--brass-light); border-bottom: 1px solid var(--brass); }
+
+  .trust { border-bottom: 1px solid var(--line); background: var(--paper); }
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 34px 24px; gap: 20px;
+  }
+  .trust-item { text-align: center; }
+  .trust-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem; font-weight: 600; color: var(--walnut);
+  }
+  .trust-label { font-size: 0.78rem; letter-spacing: 0.05em; color: rgba(22,19,15,0.6); }
+
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; margin-bottom: 44px; flex-wrap: wrap;
+  }
+  .work-grid { row-gap: 48px; }
+
+  .craft-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  .craft-media :global(img) { width: 100%; height: auto; }
+  .craft-lede { margin: 18px 0 22px; }
+  .craft-list { list-style: none; margin-bottom: 30px; }
+  .craft-list li {
+    padding: 10px 0 10px 26px; position: relative;
+    border-bottom: 1px solid var(--line-light);
+    font-size: 0.95rem; color: rgba(250,247,242,0.82);
+  }
+  .craft-list li::before {
+    content: ''; position: absolute; left: 0; top: 19px;
+    width: 12px; height: 2px; background: var(--brass);
+  }
+
+  .service-card {
+    display: flex; flex-direction: column; gap: 12px;
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 34px 30px; transition: border-color 0.25s, transform 0.25s;
+  }
+  .service-card:hover { border-color: var(--brass); transform: translateY(-4px); }
+  .service-card p { font-size: 0.94rem; color: rgba(22,19,15,0.68); flex: 1; }
+  .service-more {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--brass);
+  }
+
+  .locations-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 72px); align-items: center;
+  }
+  .loc-lede { margin: 18px 0 26px; }
+  .loc-links { display: flex; gap: 14px; flex-wrap: wrap; }
+  .loc-media :global(img) { width: 100%; height: auto; }
+
+  @media (max-width: 900px) {
+    .craft-grid, .locations-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { min-height: 72vh; }
+  }
+</style>

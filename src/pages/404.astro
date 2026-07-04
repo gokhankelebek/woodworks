@@ -1,0 +1,26 @@
+---
+import Base from '@/layouts/Base.astro';
+---
+
+<Base
+  title="Page Not Found | Vegas Vogue Woodworks"
+  description="The page you're looking for doesn't exist. Explore our custom furniture and millwork portfolio instead."
+>
+  <section class="section nf">
+    <div class="wrap">
+      <p class="eyebrow">404</p>
+      <h1>This page got sanded off.</h1>
+      <p class="lede nf-lede">The page you're looking for doesn't exist — but the work does.</p>
+      <div class="nf-actions">
+        <a href="/" class="btn btn--solid">Back Home</a>
+        <a href="/portfolio/" class="btn">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 55vh; display: flex; align-items: center; }
+  .nf-lede { margin-top: 16px; }
+  .nf-actions { display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; }
+</style>

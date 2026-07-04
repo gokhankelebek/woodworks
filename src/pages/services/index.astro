@@ -1,0 +1,79 @@
+---
+import Base from '@/layouts/Base.astro';
+import CTABand from '@/components/CTABand.astro';
+import { Image } from 'astro:assets';
+import { SERVICES } from '@/data/services';
+import { projectsByCategory } from '@/data/projects';
+import { coverFor } from '@/lib/projectImages';
+
+const title = 'Services — Custom Kitchens, Closets, Furniture & Millwork | Vegas Vogue Woodworks';
+const description =
+  'Custom kitchens, walk-in closets, feature walls, bespoke furniture, home office built-ins, and commercial millwork — designed and built in-house for Las Vegas and Los Angeles.';
+
+const cards = SERVICES.map((s) => {
+  const sample = projectsByCategory(s.category)[0];
+  return { service: s, cover: sample ? coverFor(sample.slug) : null };
+});
+---
+
+<Base title={title} description={description}>
+  <section class="section page-head">
+    <div class="wrap">
+      <p class="eyebrow">Services</p>
+      <h1>One workshop.<br />Every discipline.</h1>
+      <p class="lede head-lede">
+        Design, CNC fabrication, hand finishing, and installation — all in-house.
+        Whatever the room calls for, it comes from the same hands and the same standard.
+      </p>
+    </div>
+  </section>
+
+  <section class="services-body">
+    <div class="wrap">
+      <div class="grid grid-2 services-grid">
+        {cards.map(({ service, cover }) => (
+          <a href={`/services/${service.slug}/`} class="svc fade-up">
+            {cover && (
+              <div class="svc-media">
+                <Image
+                  src={cover}
+                  alt={`${service.title} by Vegas Vogue Woodworks`}
+                  widths={[500, 800]}
+                  sizes="(max-width: 720px) 100vw, 50vw"
+                />
+              </div>
+            )}
+            <div class="svc-body">
+              <h2>{service.navLabel}</h2>
+              <p>{service.hero}</p>
+              <span class="svc-more">View Service →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</Base>
+
+<style>
+  .page-head { padding-bottom: 32px; }
+  .head-lede { margin-top: 18px; }
+  .services-body { padding-bottom: clamp(64px, 9vw, 120px); }
+  .services-grid { row-gap: 40px; }
+  .svc { display: block; border: 1px solid var(--line); background: #fff; transition: border-color 0.25s; }
+  .svc:hover { border-color: var(--brass); }
+  .svc-media { aspect-ratio: 16 / 9; overflow: hidden; }
+  .svc-media :global(img) {
+    width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s;
+  }
+  .svc:hover .svc-media :global(img) { transform: scale(1.04); }
+  .svc-body { padding: 28px 30px 30px; }
+  .svc-body h2 { font-size: 1.6rem; }
+  .svc-body p { margin: 8px 0 16px; color: rgba(22,19,15,0.68); font-size: 0.96rem; }
+  .svc-more {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass);
+  }
+</style>
