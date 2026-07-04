@@ -16,23 +16,22 @@ const description =
   <section class="section page-head">
     <div class="wrap">
       <p class="eyebrow">Portfolio</p>
-      <h1>Work that speaks quietly,<br />and gets remembered.</h1>
+      <h1>Work that speaks quietly, <br />and gets remembered.</h1>
       <p class="lede head-lede">
         Every project below was designed, fabricated, and installed by our own team —
         from Laguna Beach master suites to the busiest restaurant on Fremont Street.
       </p>
+    </div>
+  </section>
 
+  <section class="portfolio-body">
+    <div class="wrap">
       <div class="filters" role="tablist" aria-label="Filter projects by category">
         <button class="filter active" data-filter="all">All</button>
         {categories.map(([key, label]) => (
           <button class="filter" data-filter={key}>{label}</button>
         ))}
       </div>
-    </div>
-  </section>
-
-  <section class="portfolio-body">
-    <div class="wrap">
       <div class="grid grid-3 portfolio-grid">
         {PROJECTS.map((p, i) => (
           <div class="portfolio-item" data-category={p.category}>
@@ -52,7 +51,7 @@ const description =
 <style>
   .page-head { padding-bottom: 24px; }
   .head-lede { margin-top: 18px; }
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 40px; }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
   .filter {
     font: inherit;
     font-size: 0.74rem;
@@ -71,6 +70,29 @@ const description =
   .portfolio-body { padding: 40px 0 clamp(64px, 9vw, 120px); }
   .portfolio-grid { row-gap: 48px; }
   .portfolio-item.hidden { display: none; }
+
+  @media (max-width: 720px) {
+    /* swipeable chip row, pinned under the header */
+    .filters {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 30;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 8px;
+      margin: 0 -24px 28px;
+      padding: 14px 24px;
+      background: rgba(250, 247, 242, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter { flex-shrink: 0; padding: 9px 16px; }
+    .portfolio-body { padding-top: 32px; }
+    .portfolio-grid { row-gap: 40px; }
+  }
 </style>
 
 <script>

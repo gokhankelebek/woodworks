@@ -35,7 +35,7 @@ const description =
     </div>
     <div class="wrap hero-content">
       <p class="eyebrow hero-eyebrow">Las Vegas · Los Angeles</p>
-      <h1>Furniture-grade craftsmanship,<br />architectural scale.</h1>
+      <h1>Furniture-grade craftsmanship, <br />architectural scale.</h1>
       <p class="hero-lede">
         Bespoke kitchens, walk-in closets, feature walls, and one-of-a-kind pieces —
         designed, built, and installed by one workshop for the finest homes in
@@ -104,7 +104,7 @@ const description =
       </div>
       <div class="craft-copy fade-up">
         <p class="eyebrow">Why Vegas Vogue</p>
-        <h2>Parametric precision.<br />Old-world hands.</h2>
+        <h2>Parametric precision. <br />Old-world hands.</h2>
         <p class="lede craft-lede">
           Every project starts as a 3D model you approve — and ends with surfaces
           sanded and finished by hand. In between: our own CNC fabrication, our own
@@ -148,7 +148,7 @@ const description =
     <div class="wrap locations-grid">
       <div class="fade-up">
         <p class="eyebrow">Where We Work</p>
-        <h2>Three markets.<br />One standard.</h2>
+        <h2>Three markets. <br />One standard.</h2>
         <p class="lede loc-lede">
           Our workshop sits in Las Vegas; our work lives in the most exclusive
           neighborhoods of the Southwest — Summerlin and The Ridges, Beverly Hills
@@ -250,6 +250,28 @@ const description =
   @media (max-width: 900px) {
     .craft-grid, .locations-grid { grid-template-columns: 1fr; }
     .trust-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero { min-height: 72vh; }
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      min-height: calc(100svh - var(--header-h) - var(--callbar-h));
+    }
+    .hero-content { padding-bottom: 44px; padding-top: 120px; }
+    .hero-lede { font-size: 1rem; line-height: 1.65; }
+    .hero-actions { flex-direction: column; gap: 12px; margin-top: 28px; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .hero-phone { font-size: 0.85rem; margin-top: 18px; }
+
+    .trust-grid { gap: 0; padding: 8px 24px; }
+    .trust-item { padding: 18px 8px; }
+    .trust-item:nth-child(odd) { border-right: 1px solid var(--line); }
+    .trust-item:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+    .trust-num { font-size: 1.8rem; }
+    .trust-label { font-size: 0.72rem; }
+
+    .section-head { margin-bottom: 32px; }
+    .service-card { padding: 26px 22px; }
+    .loc-links { flex-direction: column; }
+    .loc-links .btn { width: 100%; justify-content: center; }
   }
 </style>

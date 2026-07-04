@@ -154,4 +154,11 @@ const schema = [
   }
   .faq[open] summary::after { transform: rotate(45deg); }
   .faq p { padding: 0 0 18px; color: rgba(22,19,15,0.75); max-width: 68ch; }
+
+  @media (max-width: 720px) {
+    .svc-hero { min-height: 70svh; }
+    .svc-hero-actions { flex-direction: column; gap: 12px; }
+    .svc-hero-actions .btn { width: 100%; justify-content: center; }
+    .svc-intro-p { font-size: 1.02rem; }
+  }
 </style>

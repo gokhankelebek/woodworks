@@ -36,4 +36,8 @@ const {
   }
   .cta-text { margin-top: 14px; max-width: 52ch; }
   .cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  @media (max-width: 720px) {
+    .cta-actions { flex-direction: column; width: 100%; gap: 12px; }
+    .cta-actions .btn { width: 100%; justify-content: center; }
+  }
 </style>

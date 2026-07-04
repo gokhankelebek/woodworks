@@ -11,6 +11,12 @@
   --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --max: 1200px;
+  --header-h: 76px;
+  --callbar-h: calc(54px + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 720px) {
+  :root { --header-h: 62px; }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -104,4 +110,16 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .fade-up { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ————— mobile refinements ————— */
+@media (max-width: 720px) {
+  /* let display headings wrap naturally on narrow screens */
+  h1 br, h2 br { display: none; }
+
+  .section { padding: 56px 0; }
+  .lede { font-size: 1.02rem; }
+
+  /* full-width tap targets for primary actions */
+  .btn { padding: 16px 28px; }
 }

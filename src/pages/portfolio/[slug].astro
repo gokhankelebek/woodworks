@@ -171,4 +171,13 @@ const schema = [
     .project-details { position: static; }
     .project-gallery { grid-template-columns: 1fr; }
   }
+
+  @media (max-width: 720px) {
+    /* full-bleed imagery — edge-to-edge drama on a phone */
+    .project-hero, .project-video, .gallery-item { margin-left: -24px; margin-right: -24px; }
+    .project-gallery { gap: 14px; }
+    .project-layout { padding: 36px 0 44px; gap: 36px; }
+    .project-copy p { font-size: 1rem; }
+    .project-details { margin-left: -8px; margin-right: -8px; padding: 26px 22px; }
+  }
 </style>

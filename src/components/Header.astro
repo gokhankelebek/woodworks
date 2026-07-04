@@ -38,18 +38,37 @@ const path = Astro.url.pathname;
       <span class="phone-number">{BUSINESS.phone}</span>
     </a>
 
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
-
-  <nav class="mobile-nav" aria-label="Mobile" hidden>
-    {nav.map((item) => (
-      <a href={item.href} class="mobile-link">{item.label}</a>
-    ))}
-    <a href={BUSINESS.phoneHref} class="mobile-link mobile-link--phone">Call {BUSINESS.phone}</a>
-  </nav>
 </header>
+
+<!-- outside <header>: its backdrop-filter would otherwise trap this fixed overlay -->
+<nav class="mobile-nav" id="mobile-menu" aria-label="Mobile">
+    <div class="mobile-links">
+      {nav.map((item, i) => (
+        <a
+          href={item.href}
+          class:list={['mobile-link', { active: path.startsWith(item.href) }]}
+          style={`--i: ${i}`}
+        >
+          <span class="mobile-link-num">0{i + 1}</span>
+          {item.label}
+        </a>
+      ))}
+    </div>
+    <div class="mobile-contact" style={`--i: ${nav.length}`}>
+      <a href={BUSINESS.phoneHref} class="btn btn--brass mobile-call">Call {BUSINESS.phone}</a>
+      <p class="mobile-addr">
+        {BUSINESS.address.street} · {BUSINESS.address.city}, {BUSINESS.address.state}
+      </p>
+      <div class="mobile-social">
+        <a href={BUSINESS.instagram} rel="noopener" target="_blank">Instagram</a>
+        <a href={BUSINESS.facebook} rel="noopener" target="_blank">Facebook</a>
+      </div>
+    </div>
+</nav>
 
 <style>
   .site-header {
@@ -64,7 +83,7 @@ const path = Astro.url.pathname;
     display: flex;
     align-items: center;
     gap: 32px;
-    height: 76px;
+    height: var(--header-h);
   }
   .brand { display: flex; align-items: center; gap: 12px; }
   .brand-mark { width: 38px; flex-shrink: 0; color: var(--ink); }
@@ -82,9 +101,9 @@ const path = Astro.url.pathname;
     text-transform: uppercase;
     color: var(--brass);
   }
-  .main-nav { display: flex; gap: 26px; margin-left: auto; }
+  .main-nav { display: flex; gap: 24px; margin-left: auto; }
   .nav-link {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -105,38 +124,115 @@ const path = Astro.url.pathname;
   }
   .phone-number { font-weight: 600; font-size: 0.95rem; }
 
+  /* hamburger → X */
   .nav-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
     background: none;
     border: 0;
-    padding: 8px;
+    padding: 10px;
+    margin-right: -10px;
     cursor: pointer;
   }
-  .nav-toggle span { width: 24px; height: 2px; background: var(--ink); transition: 0.2s; }
+  .nav-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* full-screen takeover menu */
   .mobile-nav {
-    display: none;
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 65;
+    display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--line);
-    background: var(--paper);
-    padding: 8px 24px 16px;
+    justify-content: space-between;
+    background: var(--ink);
+    padding: 28px 24px calc(28px + env(safe-area-inset-bottom));
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto;
   }
-  .mobile-nav:not([hidden]) { display: flex; }
-  .mobile-link {
-    padding: 13px 0;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--line);
-  }
-  .mobile-link--phone { color: var(--brass); border-bottom: 0; font-weight: 600; }
+  .mobile-nav.open { opacity: 1; visibility: visible; }
 
+  .mobile-links { display: flex; flex-direction: column; }
+  .mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 6.4vw, 2rem);
+    font-weight: 500;
+    color: var(--paper);
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .mobile-link.active { color: var(--brass-light); }
+  .mobile-link-num {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+  }
+  .mobile-contact { margin-top: 28px; }
+  .mobile-call { width: 100%; justify-content: center; }
+  .mobile-addr {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: rgba(250, 247, 242, 0.55);
+  }
+  .mobile-social { display: flex; gap: 20px; margin-top: 10px; }
+  .mobile-social a {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass-light);
+    border-bottom: 1px solid var(--brass);
+    padding-bottom: 2px;
+  }
+
+  /* staggered reveal */
+  .mobile-link, .mobile-contact {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .mobile-nav.open .mobile-link,
+  .mobile-nav.open .mobile-contact {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(60ms + var(--i) * 45ms);
+  }
+
+  @media (min-width: 981px) {
+    .mobile-nav { display: none; }
+  }
   @media (max-width: 980px) {
     .main-nav, .header-phone { display: none; }
     .nav-toggle { display: flex; margin-left: auto; }
+  }
+  @media (max-width: 720px) {
+    .brand { gap: 10px; }
+    .brand-mark { width: 30px; }
+    .brand-name { font-size: 1rem; }
+    .brand-sub { font-size: 0.56rem; letter-spacing: 0.3em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-toggle span, .mobile-nav, .mobile-link, .mobile-contact { transition: none; }
   }
 </style>
 
@@ -144,9 +240,11 @@ const path = Astro.url.pathname;
   const toggle = document.querySelector('.nav-toggle');
   const menu = document.querySelector('.mobile-nav');
   toggle?.addEventListener('click', () => {
-    const open = menu?.hasAttribute('hidden');
-    if (open) menu?.removeAttribute('hidden');
-    else menu?.setAttribute('hidden', '');
+    const open = !menu?.classList.contains('open');
+    menu?.classList.toggle('open', open);
+    toggle.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   });
 </script>
