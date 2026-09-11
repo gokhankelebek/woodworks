@@ -1,12 +1,17 @@
 ---
 import { BUSINESS } from '@/data/business';
-
-// TODO: replace YOUR_FORM_ID with a real Formspree form ID (formspree.io) —
-// or point the action at any form backend / serverless endpoint.
-const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
 ---
 
-<form class="contact-form" action={FORM_ACTION} method="POST">
+<div class="form-success" hidden>
+  <p class="success-eyebrow">Request Received</p>
+  <h3>Thank you — we'll be in touch within one business day.</h3>
+  <p class="success-note">
+    Check your inbox for a confirmation. If your project is urgent, call or WhatsApp
+    <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a> — you'll reach our design team directly.
+  </p>
+</div>
+
+<form class="contact-form" action="/api/contact" method="POST">
   <div class="form-row">
     <label>
       <span>Name *</span>
@@ -59,7 +64,13 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
     <textarea name="message" rows="5" placeholder="What are you dreaming of? Inspiration links welcome."></textarea>
   </label>
 
+  <!-- honeypot: humans never see this; bots fill it -->
+  <p class="hp" aria-hidden="true">
+    <label>Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
   <button type="submit" class="btn btn--solid form-submit">Request My Free Consultation</button>
+  <p class="form-status" role="alert" hidden></p>
   <p class="form-alt">
     Prefer to talk? Call or WhatsApp <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>
   </p>
@@ -89,11 +100,86 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
     outline: 2px solid var(--brass);
     outline-offset: -1px;
   }
+  .hp { position: absolute; left: -9999px; top: -9999px; }
   .form-submit { margin-top: 6px; align-self: flex-start; }
+  .form-status {
+    background: #fbeee7;
+    border: 1px solid #d9a08a;
+    color: #7a2e12;
+    padding: 14px 16px;
+    font-size: 0.92rem;
+  }
   .form-alt { font-size: 0.88rem; color: rgba(22,19,15,0.65); }
   .form-alt a { font-weight: 600; color: var(--walnut); border-bottom: 1px solid var(--brass); }
+
+  .form-success {
+    background: var(--paper-warm);
+    border: 1px solid var(--brass);
+    padding: 36px 32px;
+  }
+  .success-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 10px;
+  }
+  .form-success h3 { font-size: 1.55rem; margin-bottom: 12px; }
+  .success-note { font-size: 0.95rem; color: rgba(22,19,15,0.75); }
+  .success-note a { font-weight: 600; color: var(--walnut); border-bottom: 1px solid var(--brass); }
+
   @media (max-width: 600px) {
     .form-row { grid-template-columns: 1fr; }
     .form-submit { align-self: stretch; text-align: center; justify-content: center; }
   }
 </style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const success = document.querySelector<HTMLElement>('.form-success');
+  const status = form?.querySelector<HTMLElement>('.form-status');
+  const submitBtn = form?.querySelector<HTMLButtonElement>('.form-submit');
+
+  const showSuccess = () => {
+    if (!form || !success) return;
+    form.hidden = true;
+    success.hidden = false;
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const showError = () => {
+    if (!status || !submitBtn) return;
+    status.hidden = false;
+    status.textContent =
+      'Something went wrong sending your request. Please call or WhatsApp (702) 343-1078 instead — we answer.';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Request My Free Consultation';
+  };
+
+  // no-JS fallback lands back here with a query flag
+  const params = new URLSearchParams(location.search);
+  if (params.get('sent') === '1') showSuccess();
+  if (params.get('error') === '1') showError();
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    if (status) status.hidden = true;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      showSuccess();
+    } catch {
+      showError();
+    }
+  });
+</script>

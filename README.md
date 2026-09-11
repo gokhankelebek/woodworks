@@ -37,11 +37,18 @@ npm run preview  # serve the production build locally
 The live domain still runs the old WordPress/Elementor site. To transition without losing
 rankings or leads:
 
-1. **Contact form backend** *(blocker)*: replace `YOUR_FORM_ID` in
-   `src/components/ContactForm.astro` with a real [Formspree](https://formspree.io) form ID
-   (free tier works), or any endpoint. Test a submission before and after go-live.
-2. **Deploy** to Cloudflare Pages / Netlify (uses `public/_redirects`) or Vercel
-   (uses `vercel.json`). Build command `npm run build`, output `dist/`.
+1. **Contact form backend — Resend** (implemented in `api/contact.js`, a Vercel function):
+   - Create a [Resend](https://resend.com) account and **verify the domain**
+     `vegasvoguewoodworks.com` (add the DKIM/SPF records Resend shows to Cloudflare DNS) —
+     required for the `leads@vegasvoguewoodworks.com` from-address.
+   - Create an API key and set it as the `RESEND_API_KEY` environment variable in the
+     Vercel project settings.
+   - Leads go to mert@vegasvoguewoodworks.com; customers get a branded auto-reply.
+   - Spam: honeypot field server-side; add Cloudflare Turnstile later if bots get through.
+   - Test a submission before and after go-live.
+2. **Deploy — Vercel**: import the GitHub repo at vercel.com/new (framework auto-detects
+   Astro; build `npm run build`, output `dist/`). `vercel.json` carries the 301 redirect
+   map and `api/contact.js` deploys automatically as a serverless function.
 3. **Point DNS** for `vegasvoguewoodworks.com` at the new host. Keep the domain on
    Cloudflare DNS — the existing `www → apex` 301 lives there and should be preserved.
 4. **Verify redirects**: every old WordPress URL (pages, 13 blog posts, categories) 301s to
