@@ -1,0 +1,33 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/about-us", "destination": "/about/", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact/", "permanent": true },
+    { "source": "/gallery", "destination": "/portfolio/", "permanent": true },
+    { "source": "/kitchen-cabinets", "destination": "/services/custom-kitchens/", "permanent": true },
+    { "source": "/bathroom-cabinets", "destination": "/services/", "permanent": true },
+    { "source": "/vanity-cabinets", "destination": "/services/", "permanent": true },
+    { "source": "/office-cabinets", "destination": "/services/home-offices/", "permanent": true },
+    { "source": "/custom-restaurant-design-furniture", "destination": "/services/commercial-millwork/", "permanent": true },
+    { "source": "/blog", "destination": "/portfolio/", "permanent": true },
+    { "source": "/cheaper-to-build-or-buy-kitchen-cabinets", "destination": "/services/custom-kitchens/", "permanent": true },
+    { "source": "/average-cost-of-custom-kitchen-cabinets-las-vegas", "destination": "/services/custom-kitchens/", "permanent": true },
+    { "source": "/why-custom-cabinets-are-the-best-choice-for-your-las-vegas-home", "destination": "/service-areas/las-vegas/", "permanent": true },
+    { "source": "/top-cabinet-design-trends-for-2024-in-las-vegas", "destination": "/service-areas/las-vegas/", "permanent": true },
+    { "source": "/the-best-custom-cabinets-for-your-las-vegas-home", "destination": "/service-areas/las-vegas/", "permanent": true },
+    { "source": "/custom-cabinetry-las-vegas", "destination": "/service-areas/las-vegas/", "permanent": true },
+    { "source": "/the-best-custom-closet-designs-in-las-vegas-nv", "destination": "/services/walk-in-closets/", "permanent": true },
+    { "source": "/custom-bathroom-cabinets-maximizing-space-and-style", "destination": "/services/", "permanent": true },
+    { "source": "/luxury-custom-cabinetry-restaurant-furniture-las-vegas", "destination": "/services/commercial-millwork/", "permanent": true },
+    { "source": "/custom-woodworking-trends-whats-hot-in-2024", "destination": "/portfolio/", "permanent": true },
+    { "source": "/using-sustainable-materials-in-custom-cabinet-design", "destination": "/about/", "permanent": true },
+    { "source": "/sustainable-smart-2025-home-design-innovations", "destination": "/portfolio/", "permanent": true },
+    { "source": "/eco-friendly-materials-2025-home-design", "destination": "/portfolio/", "permanent": true },
+    { "source": "/category/:path*", "destination": "/portfolio/", "permanent": true },
+    { "source": "/author/:path*", "destination": "/about/", "permanent": true },
+    { "source": "/metform-form/:path*", "destination": "/contact/", "permanent": true },
+    { "source": "/wp-content/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-json/:path*", "destination": "/", "permanent": true },
+    { "source": "/feed", "destination": "/", "permanent": true }
+  ]
+}

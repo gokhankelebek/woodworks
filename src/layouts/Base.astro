@@ -12,7 +12,7 @@ interface Props {
   schema?: object[];
 }
 
-const { title, description, ogImage, schema = [] } = Astro.props;
+const { title, description, ogImage = '/og-default.jpg', schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 const localBusiness = {

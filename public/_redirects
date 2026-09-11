@@ -1,0 +1,49 @@
+# 301 map: old WordPress URLs -> new site (Cloudflare Pages / Netlify format)
+# Keep this in sync with vercel.json.
+
+# --- old pages ---
+/about-us/                                                    /about/                          301
+/about-us                                                     /about/                          301
+/contact-us/                                                  /contact/                        301
+/contact-us                                                   /contact/                        301
+/gallery/                                                     /portfolio/                      301
+/gallery                                                      /portfolio/                      301
+/kitchen-cabinets/                                            /services/custom-kitchens/       301
+/kitchen-cabinets                                             /services/custom-kitchens/       301
+/bathroom-cabinets/                                           /services/                       301
+/bathroom-cabinets                                            /services/                       301
+/vanity-cabinets/                                             /services/                       301
+/vanity-cabinets                                              /services/                       301
+/office-cabinets/                                             /services/home-offices/          301
+/office-cabinets                                              /services/home-offices/          301
+/custom-restaurant-design-furniture/                          /services/commercial-millwork/   301
+/custom-restaurant-design-furniture                           /services/commercial-millwork/   301
+
+# --- old blog (no blog on new site yet; topic-matched targets) ---
+/blog/                                                        /portfolio/                      301
+/blog                                                         /portfolio/                      301
+/cheaper-to-build-or-buy-kitchen-cabinets/                    /services/custom-kitchens/       301
+/average-cost-of-custom-kitchen-cabinets-las-vegas/           /services/custom-kitchens/       301
+/why-custom-cabinets-are-the-best-choice-for-your-las-vegas-home/  /service-areas/las-vegas/   301
+/top-cabinet-design-trends-for-2024-in-las-vegas/             /service-areas/las-vegas/        301
+/the-best-custom-cabinets-for-your-las-vegas-home/            /service-areas/las-vegas/        301
+/custom-cabinetry-las-vegas/                                  /service-areas/las-vegas/        301
+/the-best-custom-closet-designs-in-las-vegas-nv/              /services/walk-in-closets/       301
+/custom-bathroom-cabinets-maximizing-space-and-style/         /services/                       301
+/luxury-custom-cabinetry-restaurant-furniture-las-vegas/      /services/commercial-millwork/   301
+/custom-woodworking-trends-whats-hot-in-2024/                 /portfolio/                      301
+/using-sustainable-materials-in-custom-cabinet-design/        /about/                          301
+/sustainable-smart-2025-home-design-innovations/              /portfolio/                      301
+/eco-friendly-materials-2025-home-design/                     /portfolio/                      301
+
+# --- WP taxonomy / plumbing ---
+/category/custom-cabinets/                                    /portfolio/                      301
+/category/kitchen-cabinetry/                                  /services/custom-kitchens/       301
+/category/uncategorized/                                      /portfolio/                      301
+/category/*                                                   /portfolio/                      301
+/author/vegasvogueteam/                                       /about/                          301
+/author/*                                                     /about/                          301
+/metform-form/*                                               /contact/                        301
+/wp-content/*                                                 /                                301
+/wp-json/*                                                    /                                301
+/feed/                                                        /                                301

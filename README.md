@@ -32,15 +32,29 @@ npm run preview  # serve the production build locally
 - `sitemap-index.xml` (auto) + `robots.txt`
 - Existing GA4 property (`G-GY8QBE9BE4`) carried over
 
-## Before launch — TODO
+## Cutover checklist (WordPress → this site)
 
-1. **Contact form backend**: replace `YOUR_FORM_ID` in `src/components/ContactForm.astro`
-   with a real [Formspree](https://formspree.io) form ID (free tier works), or any endpoint.
-2. **Deploy**: `dist/` is a plain static site — Cloudflare Pages / Vercel / Netlify all work.
-   Point the `vegasvoguewoodworks.com` DNS at the new host when ready.
-3. **OG image**: add `public/og-default.jpg` (a hero shot, 1200×630) for social sharing cards.
-4. Verify the site in **Google Search Console** and submit the sitemap.
-5. Update the **Google Business Profile** to link service pages; keep NAP identical to the footer.
+The live domain still runs the old WordPress/Elementor site. To transition without losing
+rankings or leads:
+
+1. **Contact form backend** *(blocker)*: replace `YOUR_FORM_ID` in
+   `src/components/ContactForm.astro` with a real [Formspree](https://formspree.io) form ID
+   (free tier works), or any endpoint. Test a submission before and after go-live.
+2. **Deploy** to Cloudflare Pages / Netlify (uses `public/_redirects`) or Vercel
+   (uses `vercel.json`). Build command `npm run build`, output `dist/`.
+3. **Point DNS** for `vegasvoguewoodworks.com` at the new host. Keep the domain on
+   Cloudflare DNS — the existing `www → apex` 301 lives there and should be preserved.
+4. **Verify redirects**: every old WordPress URL (pages, 13 blog posts, categories) 301s to
+   a mapped page — spot-check `/kitchen-cabinets/`, `/gallery/`, `/about-us/`,
+   `/average-cost-of-custom-kitchen-cabinets-las-vegas/` after go-live.
+5. **Google Search Console**: verify the property, submit `sitemap-index.xml`, and watch
+   Coverage for 404s the first two weeks (add redirects for anything unmapped).
+6. **Google Business Profile**: update the website link; keep NAP identical to the footer.
+7. **Blog decision**: the old site's 13 posts currently 301 to topic-matched pages. If
+   Search Console shows any of them had real traffic, port those posts into the new site
+   (an Astro content collection) and change their redirects to the new post URLs.
+8. Old WP content gap: `/bathroom-cabinets/` and `/vanity-cabinets/` redirect to
+   `/services/` — consider a dedicated Bathroom Vanities service page later.
 
 ## Post-launch growth (recommended)
 
