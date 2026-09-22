@@ -1,0 +1,21 @@
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest<HTMLAnchorElement>('a[href]');
+    if (!link) return;
+    const url = new URL(link.href);
+    let name: string | undefined;
+    if (url.protocol === 'tel:') name = 'phone_click';
+    if (url.hostname === 'www.google.com' && url.pathname.startsWith('/maps/')) name = 'directions_click';
+    if (!name) return;
+    trackEvent({
+      event: name,
+      page_path: window.location.pathname,
+      link_placement: link.closest('.call-bar') ? 'mobile_bar'
+        : link.closest('header') ? 'header'
+        : link.closest('footer') ? 'footer' : 'page',
+    });
+  });
+</script>

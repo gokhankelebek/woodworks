@@ -1,0 +1,27 @@
+---
+import Base from '@/layouts/Base.astro';
+import { BUSINESS } from '@/data/business';
+---
+
+<Base title="Thank You | Vegas Vogue Woodworks" description="Thank you for your project inquiry. The Vegas Vogue Woodworks team will be in touch." noindex>
+  <section class="section">
+    <div class="wrap thank-you">
+      <p class="eyebrow">Request received</p>
+      <h1>Thank you for sharing your project.</h1>
+      <p class="lede">Our team will be in touch within one business day to discuss your ideas and next steps.</p>
+      <p>Want to talk sooner? Call us directly, or get directions to our North Las Vegas workshop.</p>
+      <div class="thank-you-actions">
+        <a class="btn btn--solid" href={BUSINESS.phoneHref}>Call {BUSINESS.phone}</a>
+        <a class="btn" href={BUSINESS.mapsUrl} target="_blank" rel="noopener">Get Directions</a>
+      </div>
+      <a class="portfolio-link" href="/portfolio/">Explore our recent projects →</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thank-you { max-width: 900px; min-height: 45vh; }
+  .thank-you .lede { margin: 24px 0 16px; }
+  .thank-you-actions { display: flex; flex-wrap: wrap; gap: 16px; margin: 28px 0; }
+  .portfolio-link { border-bottom: 1px solid var(--brass); }
+</style>

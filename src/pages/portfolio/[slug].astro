@@ -52,7 +52,7 @@ const schema = [
       <div class="project-hero fade-up">
         <Image
           src={heroImg}
-          alt={`${project.title} in ${project.location} — custom woodwork by Vegas Vogue Woodworks`}
+          alt={project.imageAlts?.[0] ?? `${project.title} in ${project.location} — custom woodwork by Vegas Vogue Woodworks`}
           widths={[800, 1280, 1800]}
           sizes="(max-width: 1200px) 100vw, 1200px"
           loading="eager"
@@ -86,7 +86,7 @@ const schema = [
             <div class="gallery-item fade-up">
               <Image
                 src={img}
-                alt={`${project.title}, ${project.location} — detail view ${i + 2} by Vegas Vogue Woodworks`}
+                alt={project.imageAlts?.[i + 1] ?? `${project.title}, ${project.location} — detail view ${i + 2} by Vegas Vogue Woodworks`}
                 widths={[600, 1000, 1400]}
                 sizes="(max-width: 720px) 100vw, 50vw"
               />
@@ -159,7 +159,7 @@ const schema = [
   }
   .details-cta { width: 100%; justify-content: center; text-align: center; }
   .project-video { margin-bottom: 48px; }
-  .project-video video { width: 100%; }
+  .project-video video { display: block; width: 100%; max-height: 80vh; background: var(--ink); object-fit: contain; }
   .project-gallery {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 20px; padding-bottom: clamp(48px, 7vw, 88px);

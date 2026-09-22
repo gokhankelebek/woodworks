@@ -12,6 +12,8 @@ export interface Project {
   location: string;
   region: 'las-vegas' | 'los-angeles' | 'other';
   category: ProjectCategory;
+  additionalCategories?: ProjectCategory[];
+  imageAlts?: string[];
   summary: string;
   body: string[];
   details?: string[];
@@ -29,6 +31,44 @@ export const CATEGORY_LABELS: Record<ProjectCategory, string> = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    slug: 'laguna-beach-whole-home',
+    title: 'Laguna Beach — A Home in Warm Oak',
+    location: 'Laguna Beach, CA',
+    region: 'los-angeles',
+    category: 'kitchens',
+    additionalCategories: ['closets', 'feature-walls'],
+    featured: true,
+    video: '/videos/laguna-beach-whole-home.mp4',
+    summary:
+      'Custom cabinetry and millwork across a Laguna Beach home: a kitchen, walk-in closet, bathroom cabinetry, fireplace wall, and illuminated bar storage.',
+    body: [
+      'Warm oak finishes connect the rooms in this Laguna Beach residence. The custom cabinetry brings a consistent material palette to the kitchen, walk-in closet, bathroom, and bar, while each space has its own storage layout and details.',
+      'In the walk-in closet, open hanging space and illuminated shelving surround a glass-topped drawer island. Brass-toned pulls and bathroom cabinetry carry the same warmth into the adjoining suite, where vertical wood slats frame the fireplace.',
+      'The kitchen combines paneled cabinet fronts with open shelves and integrated lighting. Glass-front bar cabinets and display shelving extend that cabinetry into the entertaining spaces. Explore the finished rooms in the photos and short walkthrough below.',
+    ],
+    details: [
+      'Custom kitchen and bar cabinetry',
+      'Walk-in closet with a glass-topped island',
+      'Bathroom cabinetry with brass-toned hardware',
+      'Vertical wood slat fireplace surround',
+      'Integrated shelf and cabinet lighting',
+    ],
+    imageAlts: [
+      'Warm oak walk-in closet with illuminated shelves and a glass-topped island in Laguna Beach',
+      'Full view of the custom walk-in closet with hanging rails and island drawers',
+      'Custom oak bathroom vanity beneath a stone countertop and wall mirrors',
+      'Bathroom cabinet fronts and brass-toned pulls continuing into the walk-in closet',
+      'Vertical wood slat fireplace wall and matching console in the bedroom',
+      'Glass-topped closet island with accessory display and storage drawers',
+      'Illuminated closet shelving with dedicated shoe storage',
+      'Custom kitchen cabinetry beside a stone island and stainless steel appliances',
+      'Close-up of kitchen cabinet drawers with dark handles and vertical wood grain',
+      'Glass-front bar cabinetry with integrated lighting beside the dining area',
+      'Custom bar shelves and lower cabinets with integrated lighting',
+      'Kitchen display cabinet with glass doors, open shelves, and warm lighting',
+    ],
+  },
   {
     slug: 'laguna-beach-kitchen',
     title: 'Sleek, Warm & Functional Kitchen',
@@ -248,10 +288,11 @@ export const PROJECTS: Project[] = [
     location: 'Las Vegas, NV',
     region: 'las-vegas',
     category: 'feature-walls',
+    additionalCategories: ['commercial'],
     summary:
-      'From vision to reality — handcrafted architectural arches and a custom oversized frame, built and installed as one sculptural moment.',
+      'Handcrafted architectural arches and a custom oversized frame for a Thai restaurant in Las Vegas — curved woodwork that defines the dining space.',
     body: [
-      'These arches and the custom oversized frame were handcrafted in our workshop from the client’s inspiration images — architectural woodwork that transforms a plain elevation into a focal point.',
+      'These arches and the custom oversized frame were handcrafted for a Thai restaurant in Las Vegas. The curved woodwork frames the dining booths and brings a warm, intimate rhythm to the restaurant interior.',
       'Curved work is the true test of a shop’s skill: every radius here was formed, faired, and finished by hand.',
     ],
     details: [
@@ -339,6 +380,6 @@ export const PROJECTS: Project[] = [
 
 export const featuredProjects = () => PROJECTS.filter((p) => p.featured);
 export const projectsByCategory = (c: ProjectCategory) =>
-  PROJECTS.filter((p) => p.category === c);
+  PROJECTS.filter((p) => p.category === c || p.additionalCategories?.includes(c));
 export const projectsByRegion = (r: Project['region']) =>
   PROJECTS.filter((p) => p.region === r);

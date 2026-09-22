@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   const finish = (ok) =>
     wantsJson
       ? res.status(ok ? 200 : 500).json({ ok })
-      : res.redirect(303, ok ? '/contact/?sent=1' : '/contact/?error=1');
+      : res.redirect(303, ok ? '/thank-you/' : '/contact/?error=1');
 
   const b = req.body || {};
 

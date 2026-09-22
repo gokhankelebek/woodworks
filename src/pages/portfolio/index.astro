@@ -26,15 +26,15 @@ const description =
 
   <section class="portfolio-body">
     <div class="wrap">
-      <div class="filters" role="tablist" aria-label="Filter projects by category">
-        <button class="filter active" data-filter="all">All</button>
+      <div class="filters" role="group" aria-label="Filter projects by category">
+        <button class="filter active" data-filter="all" aria-pressed="true">All</button>
         {categories.map(([key, label]) => (
-          <button class="filter" data-filter={key}>{label}</button>
+          <button class="filter" data-filter={key} aria-pressed="false">{label}</button>
         ))}
       </div>
       <div class="grid grid-3 portfolio-grid">
         {PROJECTS.map((p, i) => (
-          <div class="portfolio-item" data-category={p.category}>
+          <div class="portfolio-item" data-category={[p.category, ...(p.additionalCategories ?? [])].join(' ')}>
             <ProjectCard project={p} loading={i < 6 ? 'eager' : 'lazy'} />
           </div>
         ))}
@@ -100,11 +100,14 @@ const description =
   const items = document.querySelectorAll<HTMLElement>('.portfolio-item');
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      buttons.forEach((b) => b.classList.remove('active'));
+      buttons.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
       btn.classList.add('active');
       const f = btn.dataset.filter;
       items.forEach((item) => {
-        item.classList.toggle('hidden', f !== 'all' && item.dataset.category !== f);
+        item.classList.toggle('hidden', f !== 'all' && !item.dataset.category?.split(' ').includes(f ?? ''));
       });
     });
   });

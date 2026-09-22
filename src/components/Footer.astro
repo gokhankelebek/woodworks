@@ -31,6 +31,7 @@ const year = new Date().getFullYear();
         <a class="footer-link" href="/service-areas/los-angeles/">Los Angeles</a>
         <a class="footer-link" href="/service-areas/orange-county/">Orange County</a>
         <a class="footer-link" href="/contact/">Contact</a>
+        <a class="footer-link" href={BUSINESS.expoUrl} target="_blank" rel="noopener">Our sister company · Vegas Vogue Expo ↗</a>
       </div>
 
       <div>
@@ -40,6 +41,7 @@ const year = new Date().getFullYear();
           {BUSINESS.address.city}, {BUSINESS.address.state} {BUSINESS.address.zip}
         </address>
         <a class="footer-link" href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>
+        <a class="footer-link" href={BUSINESS.mapsUrl} target="_blank" rel="noopener">Get Directions →</a>
         <a class="footer-link" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
         <p class="footer-hours">{BUSINESS.hours}</p>
       </div>

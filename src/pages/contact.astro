@@ -18,12 +18,17 @@ const description =
         Share a few details and we'll come back with ideas, a rough timeline, and
         honest guidance on investment.
       </p>
+      <div class="contact-actions">
+        <a href={BUSINESS.phoneHref} class="btn btn--solid">Call {BUSINESS.phone}</a>
+        <a href={BUSINESS.mapsUrl} target="_blank" rel="noopener" class="btn">Get Directions</a>
+        <a href="#project-inquiry" class="contact-form-link">Send a project inquiry →</a>
+      </div>
     </div>
   </section>
 
   <section class="contact-body">
     <div class="wrap contact-grid">
-      <div class="contact-form-col fade-up">
+      <div class="contact-form-col fade-up" id="project-inquiry">
         <ContactForm />
       </div>
 
@@ -59,6 +64,9 @@ const description =
 <style>
   .page-head { padding-bottom: 32px; }
   .head-lede { margin-top: 18px; }
+  .contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 28px; }
+  .contact-form-link { font-size: 0.9rem; border-bottom: 1px solid var(--brass); }
+  #project-inquiry { scroll-margin-top: calc(var(--header-h) + 24px); }
   .contact-body { padding-bottom: clamp(64px, 9vw, 120px); }
   .contact-grid {
     display: grid;

@@ -136,6 +136,7 @@ import { BUSINESS } from '@/data/business';
 </style>
 
 <script>
+  import { completeInquiry } from '@/lib/analytics';
   const form = document.querySelector<HTMLFormElement>('.contact-form');
   const success = document.querySelector<HTMLElement>('.form-success');
   const status = form?.querySelector<HTMLElement>('.form-status');
@@ -176,8 +177,8 @@ import { BUSINESS } from '@/data/business';
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       });
-      if (!res.ok) throw new Error(String(res.status));
-      showSuccess();
+      if (!res.ok || (await res.json()).ok !== true) throw new Error('Submission failed');
+      completeInquiry();
     } catch {
       showError();
     }

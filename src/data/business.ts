@@ -14,7 +14,8 @@ export const BUSINESS = {
   },
   geo: { lat: 36.2137232, lng: -115.1307684 },
   mapsUrl:
-    'https://www.google.com/maps/place/2915+Losee+Rd+%23107,+North+Las+Vegas,+NV+89030',
+    'https://www.google.com/maps/dir/?api=1&destination=2915+Losee+Rd+%23107,+North+Las+Vegas,+NV+89030',
+  expoUrl: 'https://www.vegasvogueexpo.com/',
   instagram: 'https://www.instagram.com/vegasvoguewoodworks/',
   facebook: 'https://www.facebook.com/profile.php?id=61563850406096',
   hours: 'Mon–Sat: 8am – 6pm',
