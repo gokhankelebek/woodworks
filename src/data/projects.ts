@@ -338,17 +338,17 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'istanbul-mediterranean-restaurant',
-    title: 'Istanbul Mediterranean — Downtown Las Vegas',
+    title: 'Custom Restaurant Millwork & Interior Build-Out',
     location: 'Fremont Street, Las Vegas, NV',
     region: 'las-vegas',
     category: 'commercial',
     featured: true,
     video: '/videos/istanbul-mediterranean-restaurant-video.mp4',
     summary:
-      'Complete interior build-out for one of Las Vegas’ most popular Mediterranean restaurants — a space designed to impress before the food even arrives.',
+      'Commercial restaurant millwork by Vegas Vogue Woodworks: service counters, wall paneling, and seating for Istanbul Mediterranean’s downtown Las Vegas location — a complete interior package, shop drawings to opening day.',
     body: [
-      'If you’ve been to Vegas, you already know Istanbul Mediterranean is one of the most popular Mediterranean restaurants in the city. For their brand-new downtown location on Fremont Street, we handled the complete interior woodwork and millwork package.',
-      'Service counters, wall paneling, seating millwork, and brand moments throughout — engineered for the brutal wear of a high-volume restaurant while looking like hospitality design, not casework.',
+      'We designed, fabricated, and installed the complete interior millwork package for this high-volume restaurant on Fremont Street: service counters, wall paneling, seating millwork, and brand moments throughout — commercial woodwork engineered for brutal daily wear while reading as hospitality design, not casework.',
+      'The client, Istanbul Mediterranean, is one of the most popular Mediterranean restaurants in Las Vegas — and when they opened their downtown location, they trusted our workshop with the entire interior.',
       'Commercial work runs on deadlines. Our in-house team took this from shop drawings to opening day on schedule, coordinating directly with the GC and trades.',
     ],
     details: [
@@ -360,7 +360,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'cherry-creek-salon',
-    title: '18 Bespoke Stylist Stations',
+    title: 'Custom Salon Millwork — 18 Stylist Stations',
     location: 'Cherry Creek, Denver, CO',
     region: 'other',
     category: 'commercial',
