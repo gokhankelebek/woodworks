@@ -32,5 +32,11 @@ export const BUSINESS = {
     'Beverly Hills',
     'Palos Verdes',
   ],
+  // GA4 carried over from the previous site; kept so its owner's reporting continues.
   gaId: 'G-GY8QBE9BE4',
+  // GA4 owned by us (account "Vegas Vogue Woodworks", property 560672386). Receives page
+  // views and the conversion events in lib/analytics.ts.
+  ownGaId: 'G-V0YMB8HTEY',
+  // Search Console verification for https://vegasvoguewoodworks.com/ (gokhankelebek@gmail.com).
+  searchConsoleVerification: 'XJW_BS4cYqKaJa5jpwWUyXCyhRSpcneFwHdJuvcG3bg',
 } as const;

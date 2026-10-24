@@ -3,6 +3,7 @@ type AnalyticsEvent = Record<string, unknown> & { event: string };
 declare global {
   interface Window {
     dataLayer: (AnalyticsEvent | IArguments)[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -10,6 +11,10 @@ declare global {
 export function trackEvent(event: AnalyticsEvent) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(event);
+  // Same event to our own GA4 property (the 'own' group in Base.astro); GTM's callback
+  // fields stay with the dataLayer event.
+  const { event: name, eventCallback, eventTimeout, ...params } = event;
+  window.gtag?.('event', name, { ...params, send_to: 'own' });
 }
 
 export function completeInquiry() {

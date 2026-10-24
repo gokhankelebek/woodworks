@@ -73,3 +73,23 @@ test('lead navigation works with blocked GTM and runs only once', async () => {
     else globalThis.window = originalWindow;
   }
 });
+
+test('events also go to our own GA4 property, without GTM callback fields', async () => {
+  const { trackEvent, completeInquiry } = await import('../src/lib/analytics.ts');
+  const originalWindow = globalThis.window;
+  try {
+    const sent = [];
+    globalThis.window = { dataLayer: [], setTimeout: () => {}, location: { assign() {} }, gtag: (...args) => sent.push(args) };
+    trackEvent({ event: 'phone_click', page_path: '/', link_placement: 'header' });
+    completeInquiry();
+    assert.deepEqual(sent, [
+      ['event', 'phone_click', { page_path: '/', link_placement: 'header', send_to: 'own' }],
+      ['event', 'generate_lead', { form_id: 'project_inquiry', send_to: 'own' }],
+    ]);
+    assert.equal(window.dataLayer[0].event, 'phone_click');
+    assert.equal(typeof window.dataLayer[1].eventCallback, 'function');
+  } finally {
+    if (originalWindow === undefined) delete globalThis.window;
+    else globalThis.window = originalWindow;
+  }
+});
