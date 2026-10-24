@@ -65,6 +65,7 @@ const schemas = [localBusiness, ...schema];
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#faf7f2" />
+    <meta name="google-site-verification" content={BUSINESS.searchConsoleVerification} />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, follow" />}
@@ -93,11 +94,15 @@ const schemas = [localBusiness, ...schema];
 
     <!-- Google Analytics -->
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${BUSINESS.gaId}`}></script>
-    <script is:inline define:vars={{ gaId: BUSINESS.gaId }}>
+    <script is:inline define:vars={{ gaId: BUSINESS.gaId, ownGaId: BUSINESS.ownGaId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', gaId);
+      // Our own property is in the 'own' group, so lib/analytics.ts can send events to it
+      // alone (the old property gets its events through GTM).
+      gtag('config', ownGaId, { groups: 'own' });
     </script>
   </head>
   <body>
